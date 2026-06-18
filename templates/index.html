@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ card.name }} - Digital Business Card">
+    <title>{{ card.name }} | Digital Business Card</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <span>{{ card.name[0] }}</span>
+                    </div>
+                    <div class="status-indicator online"></div>
+                </div>
+                <h1 class="name">{{ card.name }}</h1>
+                <p class="title">{{ card.title }}</p>
+                <p class="company"><i class="fas fa-building"></i> {{ card.company }}</p>
+            </div>
+
+            <!-- Bio Section -->
+            <div class="bio-section">
+                <p class="bio">{{ card.bio }}</p>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-section">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:{{ card.email }}">{{ card.email }}</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:{{ card.phone }}">{{ card.phone }}</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-globe"></i>
+                    <a href="{{ card.website }}" target="_blank">{{ card.website.replace('https://', '') }}</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ card.location }}</span>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-section">
+                <a href="{{ card.social.github }}" target="_blank" class="social-link github">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="{{ card.social.linkedin }}" target="_blank" class="social-link linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="{{ card.social.twitter }}" target="_blank" class="social-link twitter">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="{{ card.social.instagram }}" target="_blank" class="social-link instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+
+            <!-- Skills & Languages -->
+            <div class="details-section">
+                <div class="skills">
+                    <h3><i class="fas fa-code"></i> Skills</h3>
+                    <div class="tags">
+                        {% for skill in card.skills %}
+                            <span class="tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="languages">
+                    <h3><i class="fas fa-language"></i> Languages</h3>
+                    <div class="tags">
+                        {% for lang in card.languages %}
+                            <span class="tag">{{ lang }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Hours -->
+            <div class="hours-section">
+                <div class="hours-item">
+                    <i class="fas fa-clock"></i>
+                    <span>{{ card.hours }}</span>
+                </div>
+                <div class="hours-item">
+                    <i class="fas fa-timezone"></i>
+                    <span>{{ card.timezone }}</span>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h3><i class="fas fa-paper-plane"></i> Send a Message</h3>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Your Message" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+                <div id="formMessage" class="form-message"></div>
+            </div>
+
+            <!-- Footer -->
+            <div class="card-footer">
+                <button class="btn-save" onclick="saveContact()">
+                    <i class="fas fa-save"></i> Save Contact
+                </button>
+                <button class="btn-share" onclick="shareCard()">
+                    <i class="fas fa-share-alt"></i> Share
+                </button>
+                <button class="btn-print" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+
+            <div class="footer-text">
+                <p>© 2026 {{ card.name }} • Digital Business Card v1.0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
